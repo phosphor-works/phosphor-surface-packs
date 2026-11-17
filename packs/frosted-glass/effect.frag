@@ -7,8 +7,8 @@
 // convention and the offline validator lints it by name. So a reader looking for
 // p_blurRadius below will not find it, and that is not an omission.
 //
-// Frosted-glass pack, main pass: the phosphor-shell frosted panel shader
-// (phosphor-shell/shell/shaders/frosted_glass.frag) ported onto a REAL
+// Frosted-glass pack, main pass: Lambent's frosted panel shader
+// (shell/shaders/frosted_glass.frag in phosphor-works/Lambent) ported onto a REAL
 // blurred backdrop. The original faked frosting with a translucent tint
 // slab; here the slab is the dual-Kawase-blurred scene behind the surface
 // (iChannel6), and the original's layers ride on top: the multi-octave

@@ -1,14 +1,12 @@
 // SPDX-FileCopyrightText: 2026 fuddlesworth
 // SPDX-FileCopyrightText: Hyprland contributors
-// SPDX-License-Identifier: LGPL-2.1-or-later
+// SPDX-License-Identifier: LGPL-2.1-or-later AND BSD-3-Clause
 //
-// The second copyright line covers the VIBRANCY BLOCK below, which is a port of
-// Hyprland's blur1.glsl (BSD-3-Clause). BSD-3 requires the upstream notice to be
-// retained in a source redistribution, and this file is shipped as source. The
-// licence identifier stays LGPL-2.1-or-later: BSD-3 is compatible with it, and
-// the rest of the file is PlasmaZones-original, so the identifier describes the
-// file while the second copyright line credits the incorporated part. That is
-// the same shape the gl-transitions and Burn-My-Windows ports use.
+// The second copyright line and BSD-3-Clause cover the VIBRANCY BLOCK below,
+// which is a port of Hyprland's blur1.glsl. BSD-3 requires the upstream notice
+// to be retained in a source redistribution, and this file is shipped as
+// source; the licence text is LICENSES/BSD-3-Clause.txt. The rest of the file
+// is original and LGPL-2.1-or-later.
 //
 // Opt-in colour-space helpers for SURFACE shader packs. `#include
 // <surface_color.glsl>` only in packs that need them (hue-cycling borders,

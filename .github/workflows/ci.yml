@@ -1,0 +1,29 @@
+# SPDX-FileCopyrightText: 2026 fuddlesworth
+# SPDX-License-Identifier: LGPL-2.1-or-later
+#
+# Every push to main and every PR: the packs are well formed and every file's
+# licence is declared, and the standalone install still installs them.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check the packs
+        run: python3 scripts/check.py
+      - name: Check licences (REUSE)
+        run: pipx run reuse lint
+      - name: Install
+        run: |
+          cmake -B build
+          cmake --install build --prefix "$RUNNER_TEMP/stage"
+          test -f "$RUNNER_TEMP/stage/share/phosphor-works/surface/shared/surface_lib.glsl"

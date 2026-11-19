@@ -6,7 +6,7 @@ A pack is a directory under `packs/` with a `metadata.json` (its id, name, param
 
 ## Install location
 
-The packs install to `share/phosphor-works/surface`. An app looks for packs there under every XDG data directory, so a pack a user drops into `~/.local/share/phosphor-works/surface/<id>/` shows up in every app that draws them.
+The packs install to `share/phosphor-works/shaders/surface`. An app looks for packs there under every XDG data directory, so a pack a user drops into `~/.local/share/phosphor-works/shaders/surface/<id>/` shows up in every app that draws them.
 
 ## Using them from an app
 

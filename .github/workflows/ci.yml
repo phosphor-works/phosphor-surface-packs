@@ -26,4 +26,4 @@ jobs:
         run: |
           cmake -B build
           cmake --install build --prefix "$RUNNER_TEMP/stage"
-          test -f "$RUNNER_TEMP/stage/share/phosphor-works/surface/shared/surface_lib.glsl"
+          test -f "$RUNNER_TEMP/stage/share/phosphor-works/shaders/surface/shared/surface_lib.glsl"

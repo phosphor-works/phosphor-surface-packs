@@ -2,7 +2,7 @@
     "id": "blur",
     "name": "Blur",
     "description": "A plain blur behind the window. The scene behind the surface is blurred and lightly tinted, and shows through wherever the window itself is translucent. Brightness, contrast, saturation, vibrancy and a fine grain shape the blurred scene. The bottom corners can be left square. The Content opacity parameter sets how much of the window content stays visible over the blur.",
-    "author": "PlasmaZones",
+    "author": "Phosphor Works",
     "version": "1.3",
     "category": "Blur",
     "fragmentShader": "effect.frag",

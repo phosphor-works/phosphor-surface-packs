@@ -31,12 +31,12 @@
 // textureSize(iChannelN, 0), which the builtin Kawase passes do for every
 // channel.
 
-#ifndef PLASMAZONES_SURFACE_MULTIPASS_GLSL
-#define PLASMAZONES_SURFACE_MULTIPASS_GLSL
+#ifndef PHOSPHOR_SURFACE_MULTIPASS_GLSL
+#define PHOSPHOR_SURFACE_MULTIPASS_GLSL
 
 #include <surface_uniforms.glsl>
 
-#ifdef PLASMAZONES_KWIN
+#ifdef PHOSPHOR_KWIN
 uniform sampler2D iChannel0;
 uniform sampler2D iChannel1;
 uniform sampler2D iChannel2;
@@ -93,4 +93,4 @@ vec4 surfaceBlurTexel(vec2 uv) {
     return texture(iChannel6, uv);
 }
 
-#endif // PLASMAZONES_SURFACE_MULTIPASS_GLSL
+#endif // PHOSPHOR_SURFACE_MULTIPASS_GLSL

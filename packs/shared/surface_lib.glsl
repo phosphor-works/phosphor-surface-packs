@@ -22,8 +22,8 @@
 // what that pass is actually given; the main pass has the whole contract on
 // both runtimes and is unaffected.
 
-#ifndef PLASMAZONES_SURFACE_LIB_GLSL
-#define PLASMAZONES_SURFACE_LIB_GLSL
+#ifndef PHOSPHOR_SURFACE_LIB_GLSL
+#define PHOSPHOR_SURFACE_LIB_GLSL
 
 #include <surface_uniforms.glsl>
 
@@ -530,7 +530,7 @@ vec2 frameUv(vec2 px) {
 // that samples it, with the same per-runtime Y flip.
 vec2 surfaceUvFromPixel(vec2 px) {
     vec2 n = px / max(uSurfaceSize, vec2(1.0));
-#ifdef PLASMAZONES_KWIN
+#ifdef PHOSPHOR_KWIN
     return vec2(n.x, 1.0 - n.y);
 #else
     return n;
@@ -573,7 +573,7 @@ vec2 surfaceBendUv(vec2 uv, bool mirror) {
 // vertically, which only became reachable on the daemon once a host could
 // raise uHasBackdrop by binding a stand-in backdrop.
 vec2 pxToUv(vec2 v) {
-#ifdef PLASMAZONES_KWIN
+#ifdef PHOSPHOR_KWIN
     return vec2(v.x, -v.y) / max(uSurfaceSize, vec2(1.0));
 #else
     return v / max(uSurfaceSize, vec2(1.0));
@@ -615,4 +615,4 @@ vec3 surfaceFluxGradient(vec3 cyan, vec3 blue, vec3 purple, vec3 rose, float t) 
     return c;
 }
 
-#endif // PLASMAZONES_SURFACE_LIB_GLSL
+#endif // PHOSPHOR_SURFACE_LIB_GLSL

@@ -2,7 +2,7 @@
     "id": "opacity-tint",
     "name": "Opacity and Tint",
     "description": "Fades the window's surface and can wash it with a colour of your choice. Opacity dims the whole surface, while the tint blends it toward the tint colour by the amount you set. Leave the tint strength at zero for a plain fade.",
-    "author": "PlasmaZones",
+    "author": "Phosphor Works",
     "version": "1.0",
     "category": "Ambience",
     "providesOpacityTint": true,

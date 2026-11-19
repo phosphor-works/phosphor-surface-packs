@@ -12,7 +12,7 @@
 // that it is a FULL PORT of kwin-effects-glass, and names that project's own
 // glass.glsl, snells-glass.glsl and oklab.glsl. CLAUDE.md's rule for the
 // animation and pointer trees applies just as much here: a port of an upstream
-// body carries a second SPDX-FileCopyrightText, because PlasmaZones is not that
+// body carries a second SPDX-FileCopyrightText, because Phosphor Works is not that
 // body's copyright holder. data/surface is exempt from the GPL/LGPL
 // normalisation, not from crediting a third-party work. Same shape as the niri
 // honeycomb port in data/animations.

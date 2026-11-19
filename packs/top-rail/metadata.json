@@ -2,7 +2,7 @@
     "id": "top-rail",
     "name": "Top Rail",
     "description": "A slim focus-aware accent rail along the top edge of the window. Its height, inset, softness, corner alignment and focused colours are independently riceable.",
-    "author": "PlasmaZones",
+    "author": "Phosphor Works",
     "version": "1.0",
     "category": "Borders",
     "fragmentShader": "effect.frag",

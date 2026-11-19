@@ -13,7 +13,7 @@
 //
 //   • The compositor (kwin-effect): uTexture0 is the redirected window surface
 //     (expanded geometry, device px). The effect prepends `#define
-//     PLASMAZONES_KWIN` after `#version`, so the KWin branch below is taken;
+//     PHOSPHOR_KWIN` after `#version`, so the KWin branch below is taken;
 //     uniforms are classic default-block uniforms set with GLShader::setUniform.
 //
 //   • The daemon (PhosphorRendering Qt-RHI): uTexture0 is the daemon surface's
@@ -34,8 +34,8 @@
 // defined concept. Lengths a pack declares are LOGICAL px; multiply by
 // uSurfaceScale to reach the device-px space the geometry uniforms use.
 
-#ifndef PLASMAZONES_SURFACE_UNIFORMS_GLSL
-#define PLASMAZONES_SURFACE_UNIFORMS_GLSL
+#ifndef PHOSPHOR_SURFACE_UNIFORMS_GLSL
+#define PHOSPHOR_SURFACE_UNIFORMS_GLSL
 
 #ifdef GL_ES
 // GLSL ES defaults int to highp in the vertex stage and mediump in the
@@ -44,7 +44,7 @@
 precision highp int;
 #endif
 
-#ifdef PLASMAZONES_KWIN
+#ifdef PHOSPHOR_KWIN
 
 // ── Compositor branch — classic default-block uniforms ──────────────────────
 // uTexture0 lives on texture unit 0. The effect binds it and sets the sampler
@@ -235,7 +235,7 @@ layout(binding = 14) uniform sampler2D uTexture3;
 // which a multipass pack includes; the border and other single-pass packs bind
 // only uTexture0.
 
-#endif // PLASMAZONES_KWIN
+#endif // PHOSPHOR_KWIN
 
 // ── Shared helpers (runtime-agnostic; packs use these, not raw uniforms) ─────
 
@@ -245,7 +245,7 @@ layout(binding = 14) uniform sampler2D uTexture3;
 // bottom-origin (Y-up), so the Y is flipped there to reach the top-down space
 // the geometry uniforms are expressed in.
 vec2 surfacePixel(vec2 uv) {
-#ifdef PLASMAZONES_KWIN
+#ifdef PHOSPHOR_KWIN
     return vec2(uv.x, 1.0 - uv.y) * uSurfaceSize;
 #else
     return uv * uSurfaceSize;
@@ -266,4 +266,4 @@ vec4 surfaceTexel(vec2 uv) {
 // backdropTexel() (the scene behind the surface) moved to the opt-in
 // surface_backdrop.glsl module — a pack that samples the backdrop includes it.
 
-#endif // PLASMAZONES_SURFACE_UNIFORMS_GLSL
+#endif // PHOSPHOR_SURFACE_UNIFORMS_GLSL

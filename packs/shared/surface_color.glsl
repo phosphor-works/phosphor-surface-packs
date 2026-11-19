@@ -14,8 +14,8 @@
 // Ottosson reference implementation (public); hsv2rgb is the standard hue-wheel
 // form. Both are generic colour science, not pack-specific look code.
 
-#ifndef PLASMAZONES_SURFACE_COLOR_GLSL
-#define PLASMAZONES_SURFACE_COLOR_GLSL
+#ifndef PHOSPHOR_SURFACE_COLOR_GLSL
+#define PHOSPHOR_SURFACE_COLOR_GLSL
 
 // Rec.709 relative-luminance weights (the sRGB primaries' Y coefficients).
 float luma709(vec3 c) {
@@ -233,4 +233,4 @@ vec4 surfaceBackdropGrade(vec4 premul, float brightness, float contrast, float s
     return vec4(clamp(c, 0.0, 1.0) * premul.a, premul.a);
 }
 
-#endif // PLASMAZONES_SURFACE_COLOR_GLSL
+#endif // PHOSPHOR_SURFACE_COLOR_GLSL

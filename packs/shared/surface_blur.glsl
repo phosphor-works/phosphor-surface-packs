@@ -38,8 +38,8 @@
 // the no-scalar one, the wrong-name one, a bool declared first, a parameter with no
 // type at all, and the gaussian twin of the bool-first one.
 
-#ifndef PLASMAZONES_SURFACE_BLUR_GLSL
-#define PLASMAZONES_SURFACE_BLUR_GLSL
+#ifndef PHOSPHOR_SURFACE_BLUR_GLSL
+#define PHOSPHOR_SURFACE_BLUR_GLSL
 
 #include <surface_uniforms.glsl>
 // This kernel samples the backdrop (pass 0) and iChannel0 (pass 1), so it pulls
@@ -331,4 +331,4 @@ vec4 surfaceKawaseUp(sampler2D src, vec2 uv, float offset) {
     return sum / 12.0;
 }
 
-#endif // PLASMAZONES_SURFACE_BLUR_GLSL
+#endif // PHOSPHOR_SURFACE_BLUR_GLSL

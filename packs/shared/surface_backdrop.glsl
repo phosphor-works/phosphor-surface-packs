@@ -16,12 +16,12 @@
 // stays in surface_uniforms.glsl so a pack can branch on it without pulling in
 // the sampler.
 
-#ifndef PLASMAZONES_SURFACE_BACKDROP_GLSL
-#define PLASMAZONES_SURFACE_BACKDROP_GLSL
+#ifndef PHOSPHOR_SURFACE_BACKDROP_GLSL
+#define PHOSPHOR_SURFACE_BACKDROP_GLSL
 
 #include <surface_uniforms.glsl>
 
-#ifdef PLASMAZONES_KWIN
+#ifdef PHOSPHOR_KWIN
 // The scene BEHIND the window over the same (padded) canvas as uTexture0.
 // uBackdropRect is the VALID sub-rect of the capture in TOP-DOWN normalized
 // coords (xy = min, zw = size): canvas parts that fall off the output are never
@@ -82,7 +82,7 @@ layout(binding = 15) uniform sampler2D uBackdrop;
 // "needsBackdrop": true still gets transparent black rather than whatever
 // texture unit 0 holds.
 vec4 backdropTexel(vec2 uv) {
-#ifdef PLASMAZONES_KWIN
+#ifdef PHOSPHOR_KWIN
     vec2 td = vec2(uv.x, 1.0 - uv.y); // top-down normalized, like surfacePixel
     // INSET BY HALF A TEXEL, because the sampler is GL_LINEAR and the bound used
     // to be the rect's own edge. A sample landing exactly on that edge
@@ -124,4 +124,4 @@ vec4 backdropTexel(vec2 uv) {
 #endif
 }
 
-#endif // PLASMAZONES_SURFACE_BACKDROP_GLSL
+#endif // PHOSPHOR_SURFACE_BACKDROP_GLSL

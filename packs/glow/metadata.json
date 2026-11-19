@@ -2,7 +2,7 @@
     "id": "glow",
     "name": "Glow",
     "description": "A soft coloured halo that hugs the surface's edge, brightest against the window and fading out over the glow size. It follows the frame's corners, rounded or squared, and draws only where the surface is not fully opaque, so a window with a see-through body picks up a little of it near the edge. It dims when the surface loses focus.",
-    "author": "PlasmaZones",
+    "author": "Phosphor Works",
     "version": "1.4",
     "category": "Ambience",
     "fragmentShader": "effect.frag",

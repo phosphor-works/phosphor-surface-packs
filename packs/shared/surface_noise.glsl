@@ -34,8 +34,8 @@
 //     degenerate at 0. No bundled caller does; a third-party one should offset
 //     its input or bias the result.
 
-#ifndef PLASMAZONES_SURFACE_NOISE_GLSL
-#define PLASMAZONES_SURFACE_NOISE_GLSL
+#ifndef PHOSPHOR_SURFACE_NOISE_GLSL
+#define PHOSPHOR_SURFACE_NOISE_GLSL
 
 // Dave-Hoskins vec2 -> float, driver-stable.
 float hash13(vec2 p) {
@@ -143,4 +143,4 @@ float surfaceGrain(vec2 px, float strength) {
     return (hash13(px) - 0.5) * 2.0 * clamp(strength, 0.0, 0.2);
 }
 
-#endif // PLASMAZONES_SURFACE_NOISE_GLSL
+#endif // PHOSPHOR_SURFACE_NOISE_GLSL

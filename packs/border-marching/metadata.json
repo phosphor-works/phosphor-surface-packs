@@ -2,7 +2,7 @@
     "id": "border-marching",
     "name": "Marching Ants",
     "description": "Rounded corners and a dashed window border whose dashes march around the frame, the classic selection marquee. The motion dims when the surface loses focus.",
-    "author": "PlasmaZones",
+    "author": "Phosphor Works",
     "version": "1.1",
     "category": "Borders",
     "providesBorder": true,

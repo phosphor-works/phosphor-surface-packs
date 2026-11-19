@@ -21,8 +21,8 @@
 // pack renders static, when the visualizer setting is off OR when no pack in the
 // chain declares the flag.
 
-#ifndef PLASMAZONES_SURFACE_AUDIO_GLSL
-#define PLASMAZONES_SURFACE_AUDIO_GLSL
+#ifndef PHOSPHOR_SURFACE_AUDIO_GLSL
+#define PHOSPHOR_SURFACE_AUDIO_GLSL
 
 #include <surface_uniforms.glsl>
 
@@ -30,7 +30,7 @@
 // sampler on the compositor's classic-GL pipeline, bound to a texture unit at
 // draw time). Never sampled while iAudioSpectrumSize is 0. 1D: bar index = x,
 // y = 0; R = bar value in 0..1.
-#ifdef PLASMAZONES_KWIN
+#ifdef PHOSPHOR_KWIN
 uniform sampler2D uAudioSpectrum;
 #else
 layout(binding = 10) uniform sampler2D uAudioSpectrum;
@@ -181,4 +181,4 @@ float getOverallSoft() {
     return v * smoothstep(0.03, 0.20, v);
 }
 
-#endif // PLASMAZONES_SURFACE_AUDIO_GLSL
+#endif // PHOSPHOR_SURFACE_AUDIO_GLSL

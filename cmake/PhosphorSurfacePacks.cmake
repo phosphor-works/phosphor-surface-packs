@@ -11,7 +11,7 @@
 #   PHOSPHOR_SURFACE_PACKS_DIR          the packs in this tree, for tests and
 #                                       validators that read them unbuilt
 #   PHOSPHOR_SURFACE_PACKS_DATA_SUBDIR  where the packs install, relative to an
-#                                       XDG data directory: phosphor-works/surface.
+#                                       XDG data directory: phosphor-works/shaders/surface.
 #                                       An application looks for packs there
 #                                       under every XDG data directory, the
 #                                       user's own included, and passes the
@@ -27,7 +27,7 @@
 
 set(PHOSPHOR_SURFACE_PACKS_DIR "${CMAKE_CURRENT_LIST_DIR}/../packs")
 cmake_path(NORMAL_PATH PHOSPHOR_SURFACE_PACKS_DIR)
-set(PHOSPHOR_SURFACE_PACKS_DATA_SUBDIR "phosphor-works/surface")
+set(PHOSPHOR_SURFACE_PACKS_DATA_SUBDIR "phosphor-works/shaders/surface")
 
 function(phosphor_install_surface_packs)
     if(DEFINED KDE_INSTALL_DATADIR)

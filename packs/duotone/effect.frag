@@ -24,11 +24,10 @@
 // grade before a duotone remap would also be largely wasted, since the remap
 // discards everything but luminance.
 //
-// Retired handlesOpacity contract: uSurfaceOpacity is a constant 1.0 now
-// (SetOpacity is layer-backed and custom chains own their alpha). The pack's
-// own contentOpacity parameter fades the window content so the duotone
-// backdrop shows on opaque windows; a theme's own translucent pixels reveal
-// it the same way with no parameter involved.
+// Custom chains own their alpha. The pack's own contentOpacity parameter
+// fades the window content so the duotone backdrop shows on opaque windows; a
+// theme's own translucent pixels reveal it the same way with no parameter
+// involved.
 // NO-BACKDROP FALLBACK: when the host bound nothing behind the surface
 // (uHasBackdrop = 0), the pack renders a still shadow-to-highlight gradient
 // slab with the same corner rounding.

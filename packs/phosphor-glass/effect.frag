@@ -29,11 +29,10 @@
 // (uHasBackdrop = 0), the pack renders a translucent navy slab with the
 // same gradient shimmer and recharge sweep.
 //
-// Retired handlesOpacity contract: uSurfaceOpacity is a constant 1.0 now
-// (SetOpacity is layer-backed and custom chains own their alpha). The pack's
-// own contentOpacity parameter fades the window content so the phosphor
-// backdrop shows on opaque windows; a theme's own translucent pixels reveal
-// it the same way with no parameter involved.
+// Custom chains own their alpha. The pack's own contentOpacity parameter
+// fades the window content so the phosphor backdrop shows on opaque windows;
+// a theme's own translucent pixels reveal it the same way with no parameter
+// involved.
 
 #include <surface_multipass.glsl>
 #include <surface_noise.glsl>

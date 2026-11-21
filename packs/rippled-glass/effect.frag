@@ -24,11 +24,10 @@
 // switch decides what a displacement reaching past the pane reads: folded
 // back inside when on, the captured scene beside the pane when off.
 //
-// Retired handlesOpacity contract: uSurfaceOpacity is a constant 1.0 now
-// (SetOpacity is layer-backed and custom chains own their alpha). The pack's
-// own contentOpacity parameter fades the window content so the rippled
-// backdrop shows on opaque windows; a theme's own translucent pixels reveal
-// it the same way with no parameter involved.
+// Custom chains own their alpha. The pack's own contentOpacity parameter
+// fades the window content so the rippled backdrop shows on opaque windows; a
+// theme's own translucent pixels reveal it the same way with no parameter
+// involved.
 // NO-BACKDROP FALLBACK: when the host bound nothing behind the surface
 // (uHasBackdrop = 0), the pane degrades to a faint tint slab with the same
 // corner rounding. The slab carries a visibility floor, so the shape still

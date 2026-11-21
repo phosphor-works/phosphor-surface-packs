@@ -25,11 +25,9 @@
 // the pane reads: folded back inside when on, the captured scene beside the
 // pane when off.
 //
-// Retired handlesOpacity contract: uSurfaceOpacity is a constant 1.0 now
-// (SetOpacity is layer-backed and custom chains own their alpha). The pack's
-// own contentOpacity parameter fades the window content so the rain shows on
-// opaque windows; a theme's own translucent pixels reveal it the same way
-// with no parameter involved.
+// Custom chains own their alpha. The pack's own contentOpacity parameter
+// fades the window content so the rain shows on opaque windows; a theme's own
+// translucent pixels reveal it the same way with no parameter involved.
 // NO-BACKDROP FALLBACK: when the host bound nothing behind the surface
 // (uHasBackdrop = 0), the droplets light a dark glass slab instead of
 // refracting a capture.

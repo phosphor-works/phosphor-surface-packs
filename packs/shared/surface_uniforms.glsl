@@ -147,15 +147,6 @@ uniform vec4 iChannelResolution[4];
 // stays here so a pack can branch on it without pulling in the sampler.
 uniform float uHasBackdrop;
 
-// LEGACY — always 1.0 on both runtimes. This used to carry the window's
-// rule-resolved SetOpacity for packs declaring the retired handlesOpacity
-// contract; SetOpacity is layer-backed now (the plain opacity-tint layer
-// folds it into its own pack param) and content dimming inside a pack is a
-// plain pack parameter (frost/glass `contentOpacity`). Kept declared so
-// existing third-party packs referencing it keep compiling and the daemon
-// UBO layout is unchanged.
-uniform float uSurfaceOpacity;
-
 // Cursor position for hover-reactive packs. .xy is the cursor in the SAME
 // top-down device-px space as the geometry uniforms above (origin at the
 // padded canvas's top-left), (-1, -1) when the cursor is outside the canvas.
@@ -201,9 +192,7 @@ layout(std140, binding = 0) uniform SurfaceUniforms {
     vec2 uSurfaceFrameTopLeft;   // offset 88  (8)
     vec2 uSurfaceFrameSize;      // offset 96  (8)
     float uHasBackdrop;          // offset 104 (4) — 1 when the host bound a backdrop (scene or wallpaper stand-in), else 0
-    float uSurfaceOpacity;       // offset 108 (4) — LEGACY: a constant 1.0 on both runtimes, nothing to read.
-                                 //   NOT the blur/glass family's `contentOpacity`, which is a pack
-                                 //   PARAMETER reaching the shader as p_contentOpacity via customParams.
+    float uSurfacePad0;          // offset 108 (4) — std140 padding before customParams, nothing to read
     vec4 customParams[8];        // offset 112 (128)
     vec4 customColors[16];       // offset 240 (256)
     vec4 iChannelResolution[4];  // offset 496 (64) — multipass buffer sizes (.xy)

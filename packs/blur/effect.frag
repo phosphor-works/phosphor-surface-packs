@@ -12,8 +12,7 @@
 // rect with rounded corners. The blur shows through wherever the window
 // content is translucent, which is how blur-behind reads: the pack's own
 // contentOpacity parameter fades the window content so the blur has
-// translucency to fill (SetOpacity rules do not reach custom chains under the
-// retired handlesOpacity contract). Where the content is opaque the blur is
+// translucency to fill (SetOpacity rules do not reach custom chains). Where the content is opaque the blur is
 // fully hidden and this pass is a passthrough.
 //
 // The blurred scene runs through the shared backdrop grade (brightness,

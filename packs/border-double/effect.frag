@@ -72,7 +72,7 @@ vec4 pSurface(vec2 uv) {
     // quarter of the colour's alpha. At wInner 0 the two inner smoothsteps collapse
     // onto identical edges and (1 - S) * S peaks at the same 0.25, one gap in. The
     // user turns a line off and still sees it. Same defect, same remedy, as the six
-    // controls standardBorderBand covers.
+    // controls standardBorderBandSplit covers.
     float outerLine = wOuter > 0.0 ? smoothstep(-wOuter - aa, -wOuter + aa, d) : 0.0;
     float innerLine = wInner > 0.0
         ? (1.0 - smoothstep(-(wOuter + wGap) - aa, -(wOuter + wGap) + aa, d))

@@ -105,8 +105,8 @@ float surfaceBottomRadius(float roundedRadius, float roundBottomFlag) {
     return roundBottomFlag >= 0.5 ? roundedRadius : 0.0;
 }
 
-// frameSdf with separate top / bottom radii (device px), each clamped to half
-// the smaller side. `radius` reports the TOP radius, which is the one the
+// Frame geometry + signed distance for a fragment at device-px `p`, with
+// separate top / bottom radii (device px), each clamped to half the smaller side. `radius` reports the TOP radius, which is the one the
 // glass lens builds its normal field from.
 FrameSDF frameSdfSplit(vec2 p, float topRadiusPx, float bottomRadiusPx) {
     FrameSDF fs;
@@ -118,26 +118,6 @@ FrameSDF frameSdfSplit(vec2 p, float topRadiusPx, float bottomRadiusPx) {
     return fs;
 }
 
-// Frame geometry + signed distance for a fragment at device-px `p`, with corner
-// radius `radiusPx` (device px) clamped to half the smaller side. One call
-// replaces the centre / half-size / radius-clamp / SDF idiom every decoration
-// pack repeated. Always clamps the radius (blur previously did not — a
-// pathological radius on a tiny frame is now clamped like every sibling).
-//
-// No bundled pack calls this any more: they all take frameSdfSplit above, since
-// every outline pack now follows the chain's bottom-corner answer. Retained as a
-// third-party convenience overload, the way frameMask's one-arg form and
-// surfaceSlabOpen's two-arg form are.
-// FORWARDS rather than re-deriving, so there is one copy of the centre, the
-// half-size and the radius clamp. It used to carry its own, which is two places
-// for a clamp to drift in a header a third party compiles against.
-// sdRoundedBoxSplit(p, b, r, r) reduces exactly to sdRoundedBox(p, b, r): within a
-// quadrant the distance depends only on that quadrant's corner, and both ends here
-// name the same radius.
-FrameSDF frameSdf(vec2 p, float radiusPx) {
-    return frameSdfSplit(p, radiusPx, radiusPx);
-}
-
 // Slab AA coverage with a caller-chosen feather (device px, ± around the
 // edge). Floored at a hair so a zero feather cannot collapse smoothstep's two
 // edges together (undefined in GLSL), the same guard standardBorderBandSplit uses.
@@ -146,17 +126,6 @@ float frameMask(float d, float aa) {
     return 1.0 - smoothstep(-feather, feather, d);
 }
 
-// Slab AA coverage from an SDF distance, at a fixed ±1 px feather. Border packs pass
-// their own, defaulting to a tighter 0.7, so this is the slab form only.
-//
-// The one-arg form is the third-party convenience overload and is retained for
-// that reason, the way surfaceSlabOpen's two-arg form below is: no bundled
-// pack calls it (they all pass their own feather), but this is an LGPL library
-// header and removing it would be a source break whose failure mode is a
-// swallowed compile error and a flat grey decoration.
-float frameMask(float d) {
-    return frameMask(d, 1.0);
-}
 
 // Focus dim: `lo` when unfocused, ramping to 1.0 focused, cross-faded on the
 // contract's uSurfaceFocused. The unfocused floor is the caller's (packs pick
@@ -221,8 +190,7 @@ vec4 marginComposite(vec4 base, vec3 col, float a) {
 // The `aa` feather is the SDF edge softness in DEVICE px (kept unscaled so the
 // anti-alias width stays ~constant across output scales). The historical
 // family value is 0.7 px, a soft sub-pixel band, and every bundled outline pack
-// now exposes it as its own `edgeSoftness` parameter defaulting to that. The
-// three-arg and four-arg forms below are third-party compatibility only.
+// now exposes it as its own `edgeSoftness` parameter defaulting to that.
 struct BorderBand {
     FrameSDF fs;
     float insideMask;
@@ -231,9 +199,9 @@ struct BorderBand {
 // THE PANE'S SILHOUETTE IS A PROPERTY OF THE CHAIN, not of one pack. A backdrop
 // pack can square its bottom corners (surfaceSlabOpen takes a separate bottom
 // radius), and until this function existed no border pack could follow it: every
-// one resolved through frameSdf, which takes one radius for all four corners. A
-// chain holding both then drew a rounded border tracing empty space over a
-// square backdrop corner. The host now resolves one answer for the chain and
+// one resolved its frame with one radius for all four corners. A chain holding
+// both then drew a rounded border tracing empty space over a square backdrop
+// corner. The host now resolves one answer for the chain and
 // injects it into every pack that declares the control. Note it does NOT do the
 // same for cornerRadius: the daemon overlay path injects its card radius, and the
 // compositor's easy mode writes one into the built-in border pack, but a custom
@@ -269,7 +237,7 @@ BorderBand standardBorderBandSplit(vec2 p, float borderWidth, float cornerRadius
         off.edge = 0.0;
         return off;
     }
-    // Bound the band to most of the frame's half extent, the way frameSdf
+    // Bound the band to most of the frame's half extent, the way frameSdfSplit
     // already bounds the radius. Inside the frame the SDF never falls below
     // that half extent, so a wider band would leave every interior fragment on
     // the band side of the smoothstep and paint the whole surface as border.
@@ -309,21 +277,6 @@ BorderBand standardBorderBandSplit(vec2 p, float borderWidth, float cornerRadius
     b.edge = smoothstep(-width - feather, -width + feather, b.fs.d);
     return b;
 }
-// Uniform-radius forms, kept so a third-party pack written against the old
-// signatures still compiles. Both ends take the same radius, which is what every
-// caller meant before the split existed. Rendering is unchanged except at a
-// cornerRadius of exactly 0, where the zero-radius guard in the Split
-// implementation above now yields the square corner the control has always
-// promised instead of an arc of the border's own width. The guard deliberately
-// lives in the one implementation: splitting it would let these two forms
-// disagree with standardBorderBandSplit(p, w, r, r, aa).
-BorderBand standardBorderBand(vec2 p, float borderWidth, float cornerRadius, float aa) {
-    return standardBorderBandSplit(p, borderWidth, cornerRadius, cornerRadius, aa);
-}
-
-BorderBand standardBorderBand(vec2 p, float borderWidth, float cornerRadius) {
-    return standardBorderBand(p, borderWidth, cornerRadius, 0.7);
-}
 
 // Backdrop-slab family shared open (blur / duotone / frosted-glass / glass /
 // mosaic / phosphor-glass / rain-glass / rippled-glass): the raw window
@@ -342,10 +295,8 @@ struct SurfaceSlab {
     float mask;
 };
 
-// The four-arg form is what the bundled slab packs call: separate top / bottom
-// radii (a pack's `roundBottomCorners` switch hands 0 for the bottom) and the
-// edge feather in device px (a pack's `edgeSoftness`). The two-arg form keeps
-// the original symmetric, 1 px-feather behaviour for third-party packs.
+// Separate top / bottom radii (a pack's `roundBottomCorners` switch hands 0 for
+// the bottom) and the edge feather in device px (a pack's `edgeSoftness`).
 SurfaceSlab surfaceSlabOpen(vec2 uv, float topRadiusPx, float bottomRadiusPx, float aa) {
     SurfaceSlab s;
     s.px = surfacePixel(uv);
@@ -358,11 +309,6 @@ SurfaceSlab surfaceSlabOpen(vec2 uv, float topRadiusPx, float bottomRadiusPx, fl
     // Premultiplied, so one multiply rounds both colour and coverage.
     s.window = surfaceTexel(uv) * s.mask;
     return s;
-}
-// `cornerRadiusPx`, like the two radii above it, is the pack's p_cornerRadius
-// already scaled to device px.
-SurfaceSlab surfaceSlabOpen(vec2 uv, float cornerRadiusPx) {
-    return surfaceSlabOpen(uv, cornerRadiusPx, cornerRadiusPx, 1.0);
 }
 
 // The backdrop-slab family's shared no-backdrop fallback (any host where
@@ -500,23 +446,6 @@ float haloFalloff(float d, float reach, vec2 edgePx, float baseAlpha, float stre
     return halo;
 }
 
-// The SEVEN-argument form, kept so a third-party pack calling it is byte-identical
-// to what it had. One radius for both ends, which is what this helper did before
-// it took two, and which costs the bottom corner on a pack that squares it. A pack
-// that follows the chain's bottom-corner answer should pass both radii above.
-float haloFalloff(float d, float reach, vec2 edgePx, float baseAlpha, float strength, float focusFloor,
-                  float gateCornerPx) {
-    return haloFalloff(d, reach, edgePx, baseAlpha, strength, focusFloor, gateCornerPx, gateCornerPx);
-}
-
-// The pre-existing SIX-argument form, kept so a third-party pack calling it is
-// byte-identical to what it had. A square gate, which is what this helper did
-// before it took a radius, and which costs the corner sliver on a pack whose halo
-// reach is small against its corner radius. A pack that rounds its frame should
-// pass its radii to the eight-argument form above.
-float haloFalloff(float d, float reach, vec2 edgePx, float baseAlpha, float strength, float focusFloor) {
-    return haloFalloff(d, reach, edgePx, baseAlpha, strength, focusFloor, 0.0, 0.0);
-}
 
 // Frame-normalised UV for a device-px fragment. In [0,1] only for a fragment
 // INSIDE the frame rect: the padded canvas extends beyond it, so a fragment in

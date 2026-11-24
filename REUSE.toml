@@ -14,6 +14,6 @@ SPDX-FileCopyrightText = "2026 fuddlesworth"
 SPDX-License-Identifier = "LGPL-2.1-or-later"
 
 [[annotations]]
-path = [".gitignore", "README.md"]
+path = [".gitignore", "README.md", ".claude/settings.json"]
 SPDX-FileCopyrightText = "2026 fuddlesworth"
 SPDX-License-Identifier = "CC0-1.0"

@@ -2,7 +2,7 @@
 
 The surface decoration packs that Phosphor apps draw around windows, panels and popups: borders, glows, shadows, blur and glass materials, and animated backdrops. [PlasmaZones](https://github.com/phosphor-works/PlasmaZones) draws them on KDE Plasma windows. [Lambent](https://github.com/phosphor-works/Lambent) draws them on its bar and popouts.
 
-A pack is a directory under `packs/` with a `metadata.json` (its id, name, parameters and the shaders it runs) and its GLSL. `packs/shared/` holds the uniform contract and the helpers every pack includes, and the blur passes packs name as `builtin:`. The metadata schema and the renderer are in [phosphor-libs](https://github.com/phosphor-works/phosphor-libs) (`data/schemas/shader-metadata.schema.json`, `libs/phosphor-surface`).
+A pack is a directory under `packs/` with a `metadata.json` (its id, name, parameters and the shaders it runs) and its GLSL. `packs/shared/` holds the uniform contract and the helpers every pack includes, and the blur passes packs name as `builtin:`. The metadata schema and the renderer are in [phosphor-libs](https://github.com/phosphor-works/phosphor-libs) (`data/schemas/surface-metadata.schema.json`, `libs/phosphor-surface`).
 
 ## Install location
 

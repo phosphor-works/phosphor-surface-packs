@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2026 fuddlesworth
+# SPDX-FileCopyrightText: 2026 Phosphor Works Team
 # SPDX-License-Identifier: CC0-1.0
 #
 # Licences for files that cannot carry an SPDX header. Every shader states its
@@ -10,10 +10,10 @@ version = 1
 
 [[annotations]]
 path = "packs/*/metadata.json"
-SPDX-FileCopyrightText = "2026 fuddlesworth"
+SPDX-FileCopyrightText = "2026 Phosphor Works Team"
 SPDX-License-Identifier = "LGPL-2.1-or-later"
 
 [[annotations]]
 path = [".gitignore", "README.md", ".claude/settings.json"]
-SPDX-FileCopyrightText = "2026 fuddlesworth"
+SPDX-FileCopyrightText = "2026 Phosphor Works Team"
 SPDX-License-Identifier = "CC0-1.0"

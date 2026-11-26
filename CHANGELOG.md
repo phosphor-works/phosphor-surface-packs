@@ -10,6 +10,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). The
 
 ## [Unreleased]
 
+### Added
+
+- A `PhosphorSurfacePacks` CMake package, installed with the packs. An application that uses the packaged packs
+  finds it with `find_package(PhosphorSurfacePacks)`, which sets `PHOSPHOR_SURFACE_PACKS_DIR` to the installed packs.
+
 ## [0.1.0] - 2026-11-26
 
 The first release. It holds the surface shader packs that the suite ships, in `packs/`. The tag `v0.1.0` is commit `572e2240`, which PlasmaZones and Lambent pin.

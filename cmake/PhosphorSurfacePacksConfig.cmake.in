@@ -1,0 +1,28 @@
+# SPDX-FileCopyrightText: 2026 Phosphor Works Team
+# SPDX-License-Identifier: LGPL-2.1-or-later
+#
+# The PhosphorSurfacePacks package: the installed surface packs, for an
+# application that uses the packaged packs instead of the pinned archive.
+#
+#   find_package(PhosphorSurfacePacks 0.1 REQUIRED)
+#
+# It sets the same variables as cmake/PhosphorSurfacePacks.cmake in the
+# source tree:
+#
+#   PHOSPHOR_SURFACE_PACKS_DIR          the installed packs
+#   PHOSPHOR_SURFACE_PACKS_DATA_SUBDIR  where they install, relative to an
+#                                       XDG data directory
+#
+# phosphor_install_surface_packs() does nothing here: this package installed
+# the packs already.
+
+@PACKAGE_INIT@
+
+set_and_check(PHOSPHOR_SURFACE_PACKS_DIR "@PACKAGE_PHOSPHOR_SURFACE_PACKS_INSTALL_DIR@")
+set(PHOSPHOR_SURFACE_PACKS_DATA_SUBDIR "@PHOSPHOR_SURFACE_PACKS_DATA_SUBDIR@")
+set(PHOSPHOR_SURFACE_PACKS_INSTALLED TRUE)
+
+function(phosphor_install_surface_packs)
+endfunction()
+
+check_required_components(PhosphorSurfacePacks)
